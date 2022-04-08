@@ -319,7 +319,7 @@ variable "ec2_ami" {
 resource "aws_instance" "tf-ec2" {
   ami           = var.ec2_ami
   instance_type = var.ec2_type
-  key_name      = "mk"
+  key_name      = "hasan"
   tags = {
     Name = "${var.ec2_name}-instance"
   }
@@ -437,11 +437,12 @@ terraform plan
 
 - Terraform loads variables in the following order, with later sources taking precedence over earlier ones:
 
-  - Any -var and -var-file options on the command line, in the order they are provided.
-  - Any *.auto.tfvars or *.auto.tfvars.json files, processed in lexical order of their filenames.
-  - The terraform.tfvars.json file, if present.
-  - The terraform.tfvars file, if present.
-  - Environment variables
+  1- Any -var and -var-file options on the command line, in the order they are provided.
+  2- Any *.auto.tfvars or *.auto.tfvars.json files, processed in lexical order (alphabetical order) of their filenames.
+  3- The terraform.tfvars.json file, if present.
+  4- The terraform.tfvars file, if present.
+  5- The variable.tf file, if present.
+  6- Environment variables
 
 - Run terraform apply command.
 

@@ -1,5 +1,5 @@
 variable "ec2_name" {
-  default = "murat-ec2"
+  default = "hasan-ec2"
 }
 
 variable "ec2_type" {
@@ -11,5 +11,5 @@ variable "ec2_ami" {
 }
 
 variable "s3_bucket_name" {
- # default = "hasan-s3-bucket-variable-addwhateveryouwant"
+#  default = "hasan-s3-bucket-variable-addwhateveryouwant"
 }
