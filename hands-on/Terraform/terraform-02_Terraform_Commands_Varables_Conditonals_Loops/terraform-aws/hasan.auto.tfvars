@@ -1,1 +1,0 @@
-s3_bucket_name = "hasan-auto-tfvar-bucket"

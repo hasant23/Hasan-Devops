@@ -1,5 +1,5 @@
 variable "ec2_name" {
-  default = "hasan-ec2"
+  default = "oliver-ec2"
 }
 
 variable "ec2_type" {
@@ -11,7 +11,7 @@ variable "ec2_ami" {
 }
 
 variable "s3_bucket_name" {
-  default = "hasan-s3-bucket"
+#  default = "murat-s3-bucket-variable"
 }
 
 variable "num_of_buckets" {
@@ -19,5 +19,5 @@ variable "num_of_buckets" {
 }
 
 variable "users" {
-  default = ["santino", "michael", "fredo"]
+  default = ["santino", "michael", "fredo", "michael"]
 }

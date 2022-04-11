@@ -43,20 +43,23 @@ terraform {
 resource "aws_instance" "tf-ec2" {
   ami           = "ami-0ed9277fb7eb570c9"
   instance_type = "t2.micro"
-  key_name      = "hasan"    # write your pem file without .pem extension>
+  key_name      = "oliver"    # write your pem file without .pem extension>
   tags = {
     "Name" = "tf-ec2"
   }
 }
 
 resource "aws_s3_bucket" "tf-s3" {
-  bucket = "hasan-tf-test-bucket-addwhateveryouwant"
+  bucket = "oliver-tf-test-bucket-addwhateveryouwant"
 }
 ```
 
-- Run the command `terraform plan` and `terraform apply`.
+- Run the command `terraform init` and `terraform plan` and `terraform apply`.
 
 ```bash
+
+terraform init
+
 terraform plan
 
 terraform apply
@@ -188,7 +191,7 @@ terraform output tf_example_public_ip
 
 ### terraform apply -refresh-only command.
 
-- The `terraform apply -refresh-only` command is used to update the state file with the real-world infrastructure. This can be used to detect any drift from the last-known state, and to update the state file. First, check the current state of your resources with `terraform state list`. Then go to the AWS console and delete your S3 bucket `hasan-tf-test-bucket-addwhateveryouwant`. Display the state list again and refresh the state. Run the following commands.
+- The `terraform apply -refresh-only` command is used to update the state file with the real-world infrastructure. This can be used to detect any drift from the last-known state, and to update the state file. First, check the current state of your resources with `terraform state list`. Then go to the AWS console and delete your S3 bucket `oliver-tf-test-bucket-addwhateveryouwant`. Display the state list again and refresh the state. Run the following commands.
 
 ```bash
 $ terraform state list
@@ -230,8 +233,8 @@ resource "aws_instance" "tf-ec2" {
 }
 
 resource "aws_s3_bucket" "tf-s3" {
-  bucket = "hasan-tf-bucket-addwhateveryouwant-new"
-  #bucket = "hasan-tf-bucket-addwhateveryouwant"
+  bucket = "oliver-tf-bucket-addwhateveryouwant-new"
+  #bucket = "oliver-tf-bucket-addwhateveryouwant"
 }
 ```
 
@@ -305,7 +308,7 @@ terraform {
 }
 
 variable "ec2_name" {
-  default = "hasan-ec2"
+  default = "oliver-ec2"
 }
 
 variable "ec2_type" {
@@ -319,14 +322,14 @@ variable "ec2_ami" {
 resource "aws_instance" "tf-ec2" {
   ami           = var.ec2_ami
   instance_type = var.ec2_type
-  key_name      = "hasan"
+  key_name      = "mk"
   tags = {
     Name = "${var.ec2_name}-instance"
   }
 }
 
 variable "s3_bucket_name" {
-  default = "hasan-s3-bucket-variable-addwhateveryouwant"
+  default = "oliver-s3-bucket-variable-addwhateveryouwant"
 }
 
 resource "aws_s3_bucket" "tf-s3" {
@@ -352,6 +355,8 @@ terraform apply
 
 - Create a file name `variables.tf`. Take the variables from `main.tf` file and paste into "variables.tf". 
 
+- Create a file name `output.tf`. Take the outputs from `main.tf` file and paste into "output.tf". 
+
 ```bash
 terraform validate
 
@@ -364,7 +369,7 @@ terraform apply
 
 ```tf
 variable "s3_bucket_name" {
-#   default     = "hasan-new-s3-bucket-addwhateveryouwant"
+#   default     = "oliver-new-s3-bucket-addwhateveryouwant"
 }
 ```
 
@@ -385,7 +390,7 @@ terraform plan
 - You can define variables with `-var` command
 
 ```bash
-terraform plan -var="s3_bucket_name=hasan-new-s3-bucket-2"
+terraform plan -var="s3_bucket_name=oliver-new-s3-bucket-2"
 ```
 
 #### environment variables
@@ -395,7 +400,7 @@ terraform plan -var="s3_bucket_name=hasan-new-s3-bucket-2"
 - You can also define variable with environment variables that begin with `TF_VAR_`.
 
 ```bash
-export TF_VAR_s3_bucket_name=hasan-env-varible-bucket
+export TF_VAR_s3_bucket_name=oliver-env-varible-bucket
 terraform plan
 ```
 
@@ -413,36 +418,35 @@ s3_bucket_name = "tfvars-bucket"
 terraform plan
 ```
 
-- Create a file name `hasan.tfvars`. Add the followings.
+- Create a file name `oliver.tfvars`. Add the followings.
 
 ```bash
-s3_bucket_name = "hasan-tfvar-bucket"
+s3_bucket_name = "oliver-tfvar-bucket"
 ```
 
 - Run the command below.
 
 ```bash
-terraform plan --var-file="hasan.tfvars"
+terraform plan --var-file="oliver.tfvars"
 ```
 
-- Create a file named `hasan.auto.tfvars`. Add the followings.
+- Create a file named `oliver.auto.tfvars`. Add the followings.
 
 ```bash
-s3_bucket_name = "hasan-auto-tfvar-bucket"
+s3_bucket_name = "oliver-auto-tfvar-bucket"
 ```
 
 ```bash
 terraform plan
 ```
 
-- Terraform loads variables in the following order, with later sources taking precedence over earlier ones:
+- Terraform loads variables in the following order:
 
   1- Any -var and -var-file options on the command line, in the order they are provided.
   2- Any *.auto.tfvars or *.auto.tfvars.json files, processed in lexical order (alphabetical order) of their filenames.
   3- The terraform.tfvars.json file, if present.
   4- The terraform.tfvars file, if present.
-  5- The variable.tf file, if present.
-  6- Environment variables
+  5- Environment variables
 
 - Run terraform apply command.
 
@@ -458,13 +462,13 @@ terraform apply
 
 ```bash
 locals {
-  mytag = "hasan-local-name"
+  mytag = "oliver-local-name"
 }
 
 resource "aws_instance" "tf-ec2" {
   ami           = var.ec2_ami
   instance_type = var.ec2_type
-  key_name      = "hasan"
+  key_name      = "mk"
   tags = {
     Name = "${local.mytag}-come from locals"
   }
@@ -547,7 +551,7 @@ resource "aws_s3_bucket" "tf-s3" {
   count = var.num_of_buckets != 0 ? var.num_of_buckets : 3
 }
 ```
-https://www.terraform.io/language/configuration-0-11/interpolation
+
 ```bash
 terraform plan
 ```
