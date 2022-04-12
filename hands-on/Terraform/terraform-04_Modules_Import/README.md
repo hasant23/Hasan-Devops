@@ -143,7 +143,7 @@ output "vpc-cidr-block" {
   value = module.tf-vpc.vpc_cidr
 }
 ```
-
+#ayrı birimler ortak modülden çalışma ortamı oluştururlar
 - Go to the `dev` folder and run the command below.
 
 ```bash
