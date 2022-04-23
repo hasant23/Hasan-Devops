@@ -148,7 +148,7 @@ sudo systemctl restart kubelet
 - Let `kubeadm` prepare the environment for you. Note: Do not forget to change `<ec2-private-ip>` with your master node private IP.
 
 ```bash
-sudo kubeadm init --apiserver-advertise-address=172.31.25.102 --pod-network-cidr=10.244.0.0/16
+sudo kubeadm init --apiserver-advertise-address=172.31.26.92 --pod-network-cidr=10.244.0.0/16
 ```
 
 > :warning: **Note**: If you are working on `t2.micro` or `t2.small` instances,  use the command with `--ignore-preflight-errors=NumCPU` as shown below to ignore the errors.
@@ -342,9 +342,9 @@ kubectl get pods
 
   ```bash
   kubectl get nodes
-  kubectl drain kube-worker-1 --ignore-daemonsets --delete-emptydir-data
-  kubectl cordon kube-worker-1
-  kubectl delete node kube-worker-1
+  kubectl drain worker --ignore-daemonsets --delete-emptydir-data
+  kubectl cordon worker
+  kubectl delete node worker
   ```
 
   - Remove and reset settings on the worker node.
