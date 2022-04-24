@@ -138,3 +138,16 @@ Bookstore Web API Application aims to create a bookstore web service using Docke
 - [REpresentational State Transfer](https://en.wikipedia.org/wiki/Representational_state_transfer)
 
 - [AWS Cloudformation User Guide](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html)
+
+
+- dockerfile:  https://docs.docker.com/engine/reference/builder/
+
+- docker-compose: https://docs.docker.com/compose/compose-file/
+
+- python image: https://hub.docker.com/_/python
+
+- mysql image: https://hub.docker.com/_/mysql
+
+- pip doc: https://pip.pypa.io/en/stable/cli/pip_install/#install-requirement
+
+- flask mysql: https://flask-mysql.readthedocs.io/en/stable/
