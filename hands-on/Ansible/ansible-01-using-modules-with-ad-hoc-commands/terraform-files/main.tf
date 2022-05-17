@@ -7,13 +7,13 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 3.0"
+      version = "~> 3.74"
     }
   }
 }
 
 provider "aws" {
-  region = "us-east-1"
+  # Configuration options
 }
 
 variable "tags" {
@@ -80,7 +80,7 @@ resource "aws_security_group" "tf-sec-gr" {
 #     private_key = file("C:\Users\Toshiba\.ssh\hasan.pem") ####### CHANGE HERE #######
 #   }
 
-#   rovisioner "remote-exec" {
+#   Provisioner "remote-exec" {
 #     inline = [
 #       "sudo yum install rsync grsync -y"
 #     ]
