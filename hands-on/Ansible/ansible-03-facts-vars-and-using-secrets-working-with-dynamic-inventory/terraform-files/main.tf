@@ -26,7 +26,7 @@ resource "aws_instance" "amazon-linux-2" {
   ami = "ami-0a8b4cd432b1c3063"
   instance_type = "t2.micro"
   count = 3
-  key_name = "oliver"
+  key_name = "hasan"
   security_groups = ["ansible-session-3-sec-gr"]
   tags = {
     Name = element(var.tags, count.index)
@@ -67,7 +67,7 @@ resource "null_resource" "config" {
     host = aws_instance.amazon-linux-2[0].public_ip
     type = "ssh"
     user = "ec2-user"
-    private_key = file("~/oliver.pem")
+    private_key = file("C:/Users/Toshiba/.ssh/hasan.pem")
     }
 
   provisioner "file" {
@@ -76,8 +76,8 @@ resource "null_resource" "config" {
 }
 
   provisioner "file" {
-    source = "~/oliver.pem"
-    destination = "/home/ec2-user/oliver.pem"
+    source = "C:/Users/Toshiba/.ssh/hasan.pem"
+    destination = "/home/ec2-user/hasan.pem"
   }
 
   provisioner "remote-exec" {
@@ -86,10 +86,10 @@ resource "null_resource" "config" {
       "sudo yum update -y",
       "sudo amazon-linux-extras install ansible2 -y",
       "echo [webservers] >> inventory.txt",
-      "echo node1  ansible_host=${aws_instance.amazon-linux-2[1].private_ip}  ansible_ssh_private_key_file=~/oliver.pem ansible_user=ec2-user >> inventory.txt",
+      "echo node1  ansible_host=${aws_instance.amazon-linux-2[1].private_ip}  ansible_ssh_private_key_file=~/hasan.pem ansible_user=ec2-user >> inventory.txt",
       "echo [dbservers] >> inventory.txt",
-      "echo node2 ansible_host=${aws_instance.amazon-linux-2[2].private_ip} ansible_ssh_private_key_file=~/oliver.pem ansible_user=ec2-user >> inventory.txt",
-      "chmod 400 oliver.pem"
+      "echo node2 ansible_host=${aws_instance.amazon-linux-2[2].private_ip} ansible_ssh_private_key_file=~/hasan.pem ansible_user=ec2-user >> inventory.txt",
+      "chmod 400 hasan.pem"
     ]
   }
 }

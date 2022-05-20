@@ -16,7 +16,7 @@ provider "aws" {
 resource "aws_instance" "control-node" {
   ami = "ami-0b0af3577fe5e3532"
   instance_type = "t2.micro"
-  key_name = "oliver"
+  key_name = "hasan"
   security_groups = ["ansible-session4-secgr"]
   tags = {
     Name = "control-node"
@@ -31,7 +31,7 @@ resource "aws_instance" "managed-node" {
   ami = "ami-0b0af3577fe5e3532"
   count = 2
   instance_type = "t2.micro"
-  key_name = "oliver"
+  key_name = "hasan"
   security_groups = ["ansible-session4-secgr"]
 
 tags = {
@@ -80,7 +80,7 @@ resource "null_resource" "config" {
     host = aws_instance.control-node.public_ip
     type = "ssh"
     user = "ec2-user"
-    private_key = file("~/oliver.pem")
+    private_key = file("C:/Users/Toshiba/.ssh/hasan.pem")
     }
 
   provisioner "file" {
@@ -89,8 +89,8 @@ resource "null_resource" "config" {
 }
 
   provisioner "file" {
-    source = "~/.ssh/oliver.pem"
-    destination = "/home/ec2-user/oliver.pem"
+    source = "C:/Users/Toshiba/.ssh/hasan.pem"
+    destination = "/home/ec2-user/hasan.pem"
   }
 
   provisioner "remote-exec" {
@@ -99,9 +99,9 @@ resource "null_resource" "config" {
       "sudo yum install -y python3",
       "pip3 install --user ansible",
       "echo [servers] > inventory.txt",
-      "echo db_server  ansible_host=${aws_instance.managed-node[0].private_ip}  ansible_ssh_private_key_file=~/oliver.pem ansible_user=ec2-user >> inventory.txt",
-      "echo web_server  ansible_host=${aws_instance.managed-node[1].private_ip}  ansible_ssh_private_key_file=~/oliver.pem ansible_user=ec2-user >> inventory.txt",
-      "chmod 400 oliver.pem"
+      "echo db_server  ansible_host=${aws_instance.managed-node[0].private_ip}  ansible_ssh_private_key_file=~/hasan.pem ansible_user=ec2-user >> inventory.txt",
+      "echo web_server  ansible_host=${aws_instance.managed-node[1].private_ip}  ansible_ssh_private_key_file=~/hasan.pem ansible_user=ec2-user >> inventory.txt",
+      "chmod 400 hasan.pem"
     ]
   }
 
