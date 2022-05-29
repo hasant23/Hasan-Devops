@@ -1,3 +1,0 @@
----
-# vars file for /home/ec2-user/ansible/roles/mariadb
-web: "{{ hostvars['web_server'].ansible_host }}"

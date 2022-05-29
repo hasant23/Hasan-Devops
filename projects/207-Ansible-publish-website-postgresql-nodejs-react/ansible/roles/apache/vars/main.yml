@@ -1,3 +1,0 @@
----
-# vars file for /home/ec2-user/ansible/roles/apache
-db: "{{ hostvars['db_server'].ansible_host }}"
