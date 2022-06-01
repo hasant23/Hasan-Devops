@@ -817,6 +817,8 @@ ansible-galaxy init postgre
 ansible-galaxy init nodejs
 ansible-galaxy init react
 
+*sudo pip3 install --upgrade requests
+
 - Add the roles_path = /home/ec2-user/ansible/roles to the ansible.cfg.
 
 - Go to the /home/ec2-user/ansible/roles/docker/tasks/main.yml and copy the following.
@@ -1003,6 +1005,57 @@ container_path: /home/ec2-user/react
 container_name: cla_react
 image_name: clacw/react
 ```
+- Go to the /home/ec2-user/ansible/roles/react/tasks/main.yml and copy.
+
+```yaml
+    - name: create build directory
+      file:
+        path: "{{ container_path }}"
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+
+    - name: copy files to the react node
+      copy:
+        src: client/   # write only file name
+        dest: "{{ container_path }}"
+
+    - name: copy the Dockerfile
+      copy:
+        src: Dockerfile   # write only file name
+        dest: "{{ container_path }}"
+
+    - name: remove {{ container_name }} container and {{ image_name }} image if exists
+      shell: "docker ps -q --filter 'name={{ container_name }}' && docker stop {{ container_name }} && docker rm -fv {{ container_name }} && docker image rm -f {{ image_name }} || echo 'Not Found'"
+
+    - name: build container image
+      docker_image:
+        name: "{{ image_name }}"
+        build:
+          path: "{{ container_path }}"
+        source: build
+        state: present
+
+    - name: Launch react docker container
+      docker_container:
+        name: "{{ container_name }}"
+        image: "{{ image_name }}"
+        state: started
+        ports:
+        - "3000:3000"
+```
+
+- Copy /home/ec2-user/ansible/ansible-project/client folder and /home/ec2-user/ansible/ansible-project/react/Dockerfile to /home/ec2-user/ansible/roles/react/files.
+
+- Copy these variables to /home/ec2-user/ansible/roles/react/vars/main.yml.
+
+```
+react_home: /home/ec2-user/ansible/ansible-project/react
+container_path: /home/ec2-user/react
+container_name: cla_react
+image_name: clacw/react
+```
 
 
 - Go to the /home/ec2-user/ansible/ and create a playbook.
@@ -1040,4 +1093,27 @@ nano play-role.yml
 
 ```bash
 ansible-playbook play-role.yml
-```   
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Send a message to class-chat-geveze
+
+
+
+
+
+
