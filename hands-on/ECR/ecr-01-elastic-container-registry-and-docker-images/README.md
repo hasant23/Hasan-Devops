@@ -60,6 +60,39 @@ At the end of the this hands-on training, students will be able to;
 xxxxxxxxxxxx.dkr.ecr.us-east-1.amazonaws.com/student1-repo/todo-app
 ```
 
+### Creating a lifecycle policy:
+
+- A lifecycle policy allows you to create a set of rules that expire unused repository images. The following procedure shows you how to create a lifecycle policy. You should expect that after creating a lifecycle policy, the affected images are expired within 24 hours.
+
+- Create a lifecycle policy (AWS Management Console):
+
+- From the navigation bar, choose the Region that contains the repository for which to create a lifecycle policy.
+
+- In the navigation pane, choose Repositories.
+
+- On the Repositories page, on the Private tab, select a repository to view the repository image list.
+
+- On the repository image list view, in the left navigation pane, choose Lifecycle Policy.
+
+* Note:
+If you don't see the Lifecycle Policy option in the navigation pane, ensure that you are in the repository image list view.
+
+- On the repository lifecycle policy page, choose Create rule.
+
+- Enter the following details for your lifecycle policy rule.
+
+- For Rule priority, type a number for the rule priority.
+
+- For Rule description, type a description for the lifecycle policy rule.
+
+- For Image status, choose Tagged, Untagged, or Any.
+
+* If you specified Tagged for Image status, then for Tag prefixes, you can optionally specify a list of image tags on which to take action with your lifecycle policy. If you specified Untagged, this field must be empty.
+
+- For Match criteria, choose values for Since image pushed or Image count more than (if applicable).
+
+- Choose Save.
+
 ## Part 3 - Configuring AWS CLI to Work with AWS ECR
 
 - connect to your instance with SSH.
@@ -75,7 +108,7 @@ ssh -i .ssh/xxxxx.pem ec2-user@ec2-3-133-106-98.us-east-2.compute.amazonaws.com
 ```bash
 sudo su
 
-aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin xxxxxxxxxx.dkr.ecr.us-east-1.amazonaws.com
+aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 297946603528.dkr.ecr.us-east-1.amazonaws.com
 ```
 
 ## Part 4 - Managing Docker Images using AWS ECR as Repository
@@ -156,20 +189,20 @@ docker rm todo
 - Tag the image to push it to ECR repository.
 
 ```bash
-docker tag todo-app:latest xxxxxxxxxxx.dkr.ecr.us-east-1.amazonaws.com/student1-repo/todo-app:latest
+docker tag todo-app:latest 297946603528.dkr.ecr.us-east-1.amazonaws.com/student1-repo/todo-app:latest
 ```
 
 - Push the image to your ECR repository and show the pushed image on AWS ECR Console.
 
 ```bash
-docker push xxxxxxxxxxx.dkr.ecr.us-east-1.amazonaws.com/student1-repo/todo-app:latest
+docker push 297946603528.dkr.ecr.us-east-1.amazonaws.com/student1-repo/todo-app:latest
 ```
 
 - Create an container from image located ECR
 
 ```bash
-docker pull xxxxxxxxxxxxx.dkr.ecr.us-east-1.amazonaws.com/student1-repo/todo-app:latest
-docker run --name todo -dp 80:3000 xxxxxxxxxxxxxx.dkr.ecr.us-east-1.amazonaws.com/student1-repo/todo-app:latest
+docker pull xx297946603528.dkr.ecr.us-east-1.amazonaws.com/student1-repo/todo-app:latest
+docker run --name todo -dp 80:3000 xxx297946603528.dkr.ecr.us-east-1.amazonaws.com/student1-repo/todo-app:latest
 ```
 - Stop and remove container
 
@@ -189,20 +222,20 @@ docker build -t todo-app:latest .
 - Tag the image to push it to ECR repository.
 
 ```bash
-docker tag todo-app:latest xxxxxxxxxxx.dkr.ecr.us-east-1.amazonaws.com/student1-repo/todo-app:latest
+docker tag todo-app:latest 297946603528.dkr.ecr.us-east-1.amazonaws.com/student1-repo/todo-app:latest
 ```
 
 - Push the image to your ECR repository and show the pushed image on AWS ECR Console.
 
 ```bash
-docker push xxxxxxxxxxx.dkr.ecr.us-east-1.amazonaws.com/student1-repo/todo-app:latest
+docker push 297946603528.dkr.ecr.us-east-1.amazonaws.com/student1-repo/todo-app:latest
 ```
 - Show the repository . Immutable disable.
 
 - Create an container from image located ECR
 
 ```bash
-docker run --name todo-v1 -dp 80:3000 xxxxxxxxxxxxxx.dkr.ecr.us-east-1.amazonaws.com/student1-repo/todo-app:latest
+docker run --name todo-v1 -dp 80:3000 297946603528.dkr.ecr.us-east-1.amazonaws.com/student1-repo/todo-app:latest
 ```
 - Show the changes in the browser 
 
@@ -226,8 +259,8 @@ aws ecr create-repository \
 - Tag and push the image to your `student2-repo/todo-app` repository and show the pushed image on AWS ECR Console.
 
 ```bash
-docker tag todo-app:latest xxxxxxxxxx.dkr.ecr.us-east-1.amazonaws.com/student2-repo/todo-app:latest
-docker push xxxxxxxxxx.dkr.ecr.us-east-1.amazonaws.com/student2-repo/todo-app:latest
+docker tag todo-app:latest 297946603528.dkr.ecr.us-east-1.amazonaws.com/student2-repo/todo-app
+docker push 297946603528.dkr.ecr.us-east-1.amazonaws.com/student2-repo/todo-app
 ```
 
 - Delete the all local images of `todo-app`.
@@ -246,14 +279,14 @@ docker image ls
 - Pull the image from your `student2-repo/todo-app` repository  to the local.
 
 ```bash
-docker pull xxxxxxxxxxxxx.dkr.ecr.us-east-1.amazonaws.com/student2-repo/todo-app:latest
-docker run -dp 80:3000 xxxxxxxxxxxxxx.dkr.ecr.us-east-1.amazonaws.com/student2-repo/todo-app:latest
+docker pull 297946603528.dkr.ecr.us-east-1.amazonaws.com/student2-repo/todo-app
+docker run -dp 80:3000 297946603528.dkr.ecr.us-east-1.amazonaws.com/student2-repo/todo-app
 ```
 
 - Or directly run the `todo-app` from the ECR repo.
 
 ```bash
-docker run -dp 80:3000 xxxxxxxxxxxxx.dkr.ecr.us-east-1.amazonaws.com/student2-repo/todo-app:latest
+docker run -dp 80:3000 297946603528.dkr.ecr.us-east-1.amazonaws.com/student2-repo/todo-app
 ```
 
 - Check if the To-Do App is running by entering `http://<ec2-host-name>` in a browser.

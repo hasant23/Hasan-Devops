@@ -61,7 +61,7 @@ resource "aws_iam_role" "ec2ecrfullaccess" {
 }
 
 resource "aws_iam_instance_profile" "ec2_profile" {
-  name = "ecr-ec2_profile"
+  name = "ecr-ec2_profile1"
   role = aws_iam_role.ec2ecrfullaccess.name
 }
 
@@ -69,7 +69,7 @@ resource "aws_iam_instance_profile" "ec2_profile" {
 resource "aws_instance" "ecr-instance" {
   ami                  = "ami-02e136e904f3da870"
   instance_type        = "t2.micro"
-  key_name        = "tyler-team" # you need to change this line
+  key_name        = "hasan" # you need to change this line
   security_groups = ["ec2-sec-gr"]
   tags = {
     Name = "ec2-ecr-instance"
@@ -101,5 +101,5 @@ output "ec2-public-ip" {
 }
 
 output "ssh-connection" {
-  value = "ssh -i ~/.ssh/mk.pem ec2-user@${aws_instance.ecr-instance.public_ip}"
+  value = "ssh -i ~/.ssh/hasan.pem ec2-user@${aws_instance.ecr-instance.public_ip}"
 }
